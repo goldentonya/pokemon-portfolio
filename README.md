@@ -78,11 +78,14 @@ docker run -p 3000:3000 pokemon-portfolio
 
 ## Content still to drop in
 
-Real photos and case studies are wired in. What's still outstanding:
+All provided real photos and screenshots are wired in — every file in `src/assets/` is used
+somewhere (About photos, both real case studies with full galleries, all 4 A/B experiment cards,
+and the brand logo as favicon/OG image). What's still outstanding:
 
-- **Case Studies → Email Capture Test**: the third A/B experiment card
-  (`src/components/CaseStudies.tsx`) uses real screenshots but the result copy and stat box are
-  placeholders ("Add your real result here" / "TBD") — needs the real conversion numbers.
+- **Case Studies → Email Capture Test & Creative Test**: two of the four A/B experiment cards
+  (`src/components/CaseStudies.tsx`) use real screenshots but the result copy and stat boxes are
+  still placeholders ("Add your real result here" / "TBD") — needs the real conversion numbers
+  for the email-field test and the Thank You Video creative test.
 - **Case Studies → project links**: both real case-study pages' "VISIT LIVE SITE" buttons
   (`src/app/work/[slug]/page.tsx`) still point to `#` — needs the real live URLs for Overboard
   Art and The Wren's Hollow.
@@ -91,11 +94,9 @@ Real photos and case studies are wired in. What's still outstanding:
 - **Contact**: `/resume.pdf` (drop the file into `public/`) and the real booking-call link.
   Email is already wired to `hello@tonyagolden.dev` — update in `src/components/Contact.tsx` if
   that should change.
-- **Unused assets**: `src/assets/case-studies/case-tyv-*.png` (extra Medicare Thank You Video
-  creative variants) and a few `overboard-art`/`wrens-hollow` comparison images weren't used in
-  the current layout — available if you want to expand either section later.
-- **Brand logo**: `src/assets/main_logo.png` (full wordmark) is available but unused; the icon
-  version is already wired up as the favicon/apple-touch-icon.
+- **`NEXT_PUBLIC_SITE_URL`**: set this env var to the real production domain once deployed —
+  it's used as `metadataBase` for resolving the Open Graph/Twitter image URLs (falls back to
+  `http://localhost:3000` otherwise).
 
 ## Known follow-ups
 

@@ -1,12 +1,24 @@
 import type { StaticImageData } from "next/image";
 
 import overboardArtHero from "@/assets/overboard-art/homepage-comparison.jpg";
-import overboardArtGallery1 from "@/assets/overboard-art/portfolio-collections-new.jpg";
-import overboardArtGallery2 from "@/assets/overboard-art/single-portfolio-comparison.jpg";
+import overboardArtPortfolio from "@/assets/overboard-art/portfolio-collections-new.jpg";
+import overboardArtSingleWork from "@/assets/overboard-art/single-portfolio-comparison.jpg";
+import overboardArtAbout from "@/assets/overboard-art/about-new.jpg";
+import overboardArtContact from "@/assets/overboard-art/contact-new.jpg";
 
 import wrensHollowHero from "@/assets/wrens-hollow/homepage-comparison.jpg";
-import wrensHollowGallery1 from "@/assets/wrens-hollow/shop-comparison.jpg";
-import wrensHollowGallery2 from "@/assets/wrens-hollow/about-comparison.jpg";
+import wrensHollowShop from "@/assets/wrens-hollow/shop-comparison.jpg";
+import wrensHollowAbout from "@/assets/wrens-hollow/about-comparison.jpg";
+import wrensHollowBookSeries from "@/assets/wrens-hollow/book-series-comparison.jpg";
+import wrensHollowBookPage from "@/assets/wrens-hollow/book-page-comparison.jpg";
+import wrensHollowEvents from "@/assets/wrens-hollow/events-comparison.jpg";
+import wrensHollowProduct from "@/assets/wrens-hollow/product-comparison.jpg";
+import wrensHollowOnTheHorizon from "@/assets/wrens-hollow/writing-comparison.jpg";
+
+export type GalleryImage = {
+  src: StaticImageData;
+  label: string;
+};
 
 export type Project = {
   slug: string;
@@ -32,7 +44,7 @@ export type Project = {
   tools: string[];
   ctaLabel: string;
   heroImage: StaticImageData;
-  galleryImages: [StaticImageData, StaticImageData];
+  galleryImages: GalleryImage[];
 };
 
 export const projects: Project[] = [
@@ -62,13 +74,19 @@ export const projects: Project[] = [
       "Designed a dark, editorial visual system built around real project photography.",
       "Organized the work into browsable collections — Faux Teak, Gold Leaf, Yacht Lettering & Transoms, Marlins & Sailfish, Pyrography, Signage, and Airbrush & Detail.",
       "Built out an individual gallery page for each collection so every commission gets its own showcase.",
+      "Added About and Contact pages — a real studio story and a working inquiry form, neither of which existed before.",
     ],
     outcome:
       "The site went from a single unstructured blog page to a real portfolio that reflects the craftsmanship behind the work, giving Kelly a place to send prospective clients that actually sells the work for her.",
     tools: ["REACT", "TANSTACK START", "TYPESCRIPT", "TAILWIND CSS", "FRAMER MOTION"],
     ctaLabel: "VISIT LIVE SITE",
     heroImage: overboardArtHero,
-    galleryImages: [overboardArtGallery1, overboardArtGallery2],
+    galleryImages: [
+      { src: overboardArtPortfolio, label: "Portfolio Collections" },
+      { src: overboardArtSingleWork, label: "Single Work Page" },
+      { src: overboardArtAbout, label: "About Page" },
+      { src: overboardArtContact, label: "Contact Page" },
+    ],
   },
   {
     slug: "wrens-hollow",
@@ -95,14 +113,22 @@ export const projects: Project[] = [
       "Designed a plum-and-parchment visual system fit for a romance/dark-fantasy author brand.",
       "Built a custom WordPress theme reproducing the design across every page.",
       "Wired up WooCommerce for signed-copy sales, including cart and checkout.",
-      "Built dedicated pages for each book series and individual titles.",
+      "Built dedicated pages for each book series, individual titles, events, and upcoming releases.",
     ],
     outcome:
       "Ali now has a site she can run herself — real book sales, an events hub, and a homepage that sells the fantasy/romance vibe instead of a bare WordPress default.",
     tools: ["WORDPRESS", "WOOCOMMERCE", "PHP", "HTML / CSS", "JAVASCRIPT"],
     ctaLabel: "VISIT LIVE SITE",
     heroImage: wrensHollowHero,
-    galleryImages: [wrensHollowGallery1, wrensHollowGallery2],
+    galleryImages: [
+      { src: wrensHollowShop, label: "Shop Page" },
+      { src: wrensHollowProduct, label: "Product Page" },
+      { src: wrensHollowBookSeries, label: "Book Series Page" },
+      { src: wrensHollowBookPage, label: "Individual Book Page" },
+      { src: wrensHollowAbout, label: "About Page" },
+      { src: wrensHollowEvents, label: "Events Page" },
+      { src: wrensHollowOnTheHorizon, label: "On the Horizon Page" },
+    ],
   },
 ];
 

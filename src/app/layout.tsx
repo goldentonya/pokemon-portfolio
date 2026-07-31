@@ -20,9 +20,13 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "Tonya Golden — Conversion Optimization Trainer",
   description:
     "Tonya Golden is a Conversion Optimization / CRO expert who turns messy data into confident product decisions through experimentation, UX research, and analytics.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

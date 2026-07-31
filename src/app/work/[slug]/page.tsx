@@ -117,13 +117,22 @@ export default async function ProjectPage({
       </section>
 
       <section className="mx-auto max-w-[1080px] px-[clamp(16px,4vw,40px)] pt-5 pb-[60px]">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <h2 className="font-heading text-[18px] text-ink">MORE FROM THIS PROJECT</h2>
+        <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {project.galleryImages.map((image, i) => (
             <div
               key={i}
               className="overflow-hidden rounded-2xl border-4 border-ink bg-white shadow-[6px_6px_0_#17171b]"
             >
-              <Image src={image} alt={`${project.title} detail ${i + 1}`} className="h-auto w-full" sizes="(min-width: 640px) 50vw, 100vw" />
+              <Image
+                src={image.src}
+                alt={`${project.title} — ${image.label}`}
+                className="h-auto w-full"
+                sizes="(min-width: 640px) 50vw, 100vw"
+              />
+              <div className="border-t-2 border-dashed border-divider px-4 py-3 font-pixel text-[11px] tracking-wide text-body">
+                {image.label}
+              </div>
             </div>
           ))}
         </div>

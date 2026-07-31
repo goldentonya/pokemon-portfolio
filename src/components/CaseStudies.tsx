@@ -8,6 +8,17 @@ import caseButtonVar from "@/assets/case-studies/case-button-var.png";
 import caseLifeTyvVar from "@/assets/case-studies/case-life-tyv-var.png";
 import caseEmailOrig from "@/assets/case-studies/case-email-orig.png";
 import caseEmailVar from "@/assets/case-studies/case-email-var.png";
+import caseTyvOrig from "@/assets/case-studies/case-tyv-orig.png";
+import caseTyvVar2 from "@/assets/case-studies/case-tyv-var2.png";
+import caseTyvVar3 from "@/assets/case-studies/case-tyv-var3.png";
+import caseTyvVar4 from "@/assets/case-studies/case-tyv-var4.png";
+
+const TYV_VARIANTS = [
+  { src: caseTyvOrig, label: "ORIGINAL", labelClass: "border-poke-blue bg-chip-blue text-poke-blue" },
+  { src: caseTyvVar2, label: "VARIANT B", labelClass: "border-fire-red bg-[#fdece9] text-fire-red" },
+  { src: caseTyvVar3, label: "VARIANT C", labelClass: "border-accent-orange bg-[#fdf1e3] text-accent-orange" },
+  { src: caseTyvVar4, label: "VARIANT D", labelClass: "border-grass-green bg-[#eaf7ec] text-grass-green" },
+];
 
 export default function CaseStudies() {
   return (
@@ -226,6 +237,63 @@ export default function CaseStudies() {
               </div>
               <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#3b9c4a]">
                 <div className="font-heading text-[20px] text-[#6cc47a]">TBD</div>
+                <div className="mt-2 font-pixel text-[10px] text-dark-text">AWAITING RESULT</div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* experiment 4 — spans full width */}
+          <Reveal className="flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] shadow-[6px_6px_0_#7b62c9] lg:col-span-2">
+            <div className="font-heading text-[12px] text-poke-blue">▸ CREATIVE TEST</div>
+            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">
+              THANK YOU VIDEO VARIANTS
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-[14px] sm:grid-cols-4">
+              {TYV_VARIANTS.map((variant) => (
+                <div key={variant.label}>
+                  <span
+                    className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${variant.labelClass}`}
+                  >
+                    ● {variant.label}
+                  </span>
+                  <div className="relative mt-[10px] aspect-[9/16] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
+                    <Image
+                      src={variant.src}
+                      alt={`Thank You Video ${variant.label.toLowerCase()}`}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(min-width: 640px) 22vw, 45vw"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Problem:</b> A Thank You Video was already working on the
+              Medicare quote flow, but we hadn&rsquo;t tested which creative treatment actually
+              performed best.
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Action:</b> Ran a multivariate test across four creative
+              treatments for the video &ndash; page headline, thumbnail style, and framing &ndash;
+              on the same Medicare confirmation step.
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Result:</b>{" "}
+              <span className="text-body/70">Add your real result here — e.g. which variant won and the lift.</span>
+            </p>
+            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <div className="font-pixel text-[12px] leading-[2]">
+                <div className="text-body">
+                  <span className="text-[#9aa0ac]">●</span> ORIGINAL: —
+                </div>
+                <div className="text-ink">
+                  <span className="text-psychic-purple">●</span> WINNING VARIANT: —
+                </div>
+              </div>
+              <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#7b62c9]">
+                <div className="font-heading text-[20px] text-[#a58ee0]">TBD</div>
                 <div className="mt-2 font-pixel text-[10px] text-dark-text">AWAITING RESULT</div>
               </div>
             </div>
