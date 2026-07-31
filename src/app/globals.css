@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Kanto Bright palette */
+  --color-ink: #17171b;
+  --color-cream: #fff8e6;
+  --color-poke-blue: #2a75bb;
+  --color-pikachu-yellow: #ffcb05;
+  --color-fire-red: #e3350d;
+  --color-accent-orange: #f0a30a;
+  --color-grass-green: #3b9c4a;
+  --color-psychic-purple: #7b62c9;
+  --color-body: #3b4557;
+  --color-dark-card: #20202a;
+  --color-dark-text: #d7dceb;
+  --color-dark-text-muted: #c3cad9;
+  --color-light-blue-band: #eef2fb;
+  --color-chip-blue: #eaf3fc;
+  --color-divider: #d8cfae;
+
+  /* Fonts, wired up in layout.tsx via next/font variables */
+  --font-heading: var(--font-press-start-2p);
+  --font-pixel: var(--font-silkscreen);
+  --font-body: var(--font-dm-sans);
+
+  /* Sprite / decoration animations */
+  --animate-bob: bob 2.6s ease-in-out infinite;
+  --animate-bobslow: bobslow 3s ease-in-out infinite;
+  --animate-bobmslow: bobmslow 3s ease-in-out infinite;
+  --animate-drift: drift 22s linear infinite;
+  --animate-spinslow: spinslow 14s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes bobslow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes bobmslow {
+  0%, 100% { transform: scaleX(-1) translateY(0); }
+  50% { transform: scaleX(-1) translateY(-8px); }
+}
+@keyframes drift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes spinslow {
+  to { transform: rotate(360deg); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+.pixelated {
+  image-rendering: pixelated;
 }

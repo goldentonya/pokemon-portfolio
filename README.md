@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pokémon Portfolio — Tonya Golden
 
-## Getting Started
+A single-page personal portfolio for **Tonya Golden**, a Conversion Optimization / CRO expert,
+styled as a retro Game Boy / pixel-art Pokémon theme ("Kanto Bright"). Built with Next.js (App
+Router, TypeScript, Tailwind CSS v4).
 
-First, run the development server:
+Recreated from the design handoff in `Portfolio Wireframe.html`, `Tonya Golden Portfolio.html`,
+and the three `project-*.html` case-study references — see that handoff's `README.md` for the
+full design spec (tokens, copy, sprite rules, animations).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, TypeScript, Turbopack)
+- [Tailwind CSS v4](https://tailwindcss.com) — design tokens (colors, fonts, sprite keyframes)
+  live in `src/app/globals.css`
+- Fonts: Press Start 2P, Silkscreen, DM Sans (via `next/font/google`)
+
+## Project structure
+
+```
+src/
+  app/
+    page.tsx            # homepage — composes all sections
+    work/[slug]/page.tsx # shared project case-study template
+    globals.css          # design tokens, keyframes
+  components/            # Nav, Hero, About, Origin, Experience, Skills,
+                          # CaseStudies, Services, Testimonials, Contact, Footer,
+                          # plus shared primitives: Reveal, CornerSprite, PixelButton,
+                          # PokeBallIcon, ImageSlot
+  lib/
+    projects.ts           # case-study content (shared by the cards + detail pages)
+public/
+  sprites/                 # Pokémon mascot sprites
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Option A — Node
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+### Option B — Docker (local dev environment)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+docker compose up
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This builds the `dev` stage of the `Dockerfile`, bind-mounts the source for hot reload, and
+serves the site at [http://localhost:3000](http://localhost:3000). Source edits on the host are
+picked up automatically (file-watch polling is enabled for reliability on Windows/WSL bind
+mounts).
 
-## Deploy on Vercel
+`docker compose down` stops it; add `-v` to also drop the cached `node_modules`/`.next` volumes
+if you need a totally clean reinstall.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Production build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build && npm start
+```
+
+or, via Docker (uses the `runner` stage — a small `output: "standalone"` image):
+
+```bash
+docker build --target runner -t pokemon-portfolio .
+docker run -p 3000:3000 pokemon-portfolio
+```
+
+## Content still to drop in
+
+The design handoff's photos/screenshots are placeholders (per the original spec). Real assets
+still need to be added in these spots:
+
+- About: trainer photo + 3×3 life-photo grid
+- Experience: company logos (2)
+- Case Studies: 3 project card screenshots, 2 project hero images + 4 gallery screenshots
+  (`src/app/work/[slug]/page.tsx`), 2 A/B test experiment screenshots
+- Contact: `/resume.pdf` (drop the file into `public/`) and the real booking-call link
+- Real email is already wired to `hello@tonyagolden.dev` — update in `src/components/Contact.tsx`
+  if that should change
+
+## Known follow-ups
+
+- Decorative sprites use plain `<img>` for simplicity (small, fixed-size, purely
+  decorative assets); swapping to `next/image` is a straightforward follow-up if
+  automatic optimization is wanted.
