@@ -1,6 +1,16 @@
+import Image from "next/image";
 import CornerSprite from "./CornerSprite";
-import ImageSlot from "./ImageSlot";
 import Reveal from "./Reveal";
+import trainerPhoto from "@/assets/about/trainer-photo.jpg";
+import personal1 from "@/assets/about/personal-1.jpg";
+import personal2 from "@/assets/about/personal-2.jpg";
+import personal3 from "@/assets/about/personal-3.jpg";
+import personal4 from "@/assets/about/personal-4.jpg";
+import personal5 from "@/assets/about/personal-5.jpg";
+import personal6 from "@/assets/about/personal-6.jpg";
+import personal7 from "@/assets/about/personal-7.jpg";
+import personal8 from "@/assets/about/personal-8.jpg";
+import personal9 from "@/assets/about/personal-9.jpg";
 
 const BIO = [
   "I'm Tonya Golden, a conversion optimization expert who's spent 12+ years turning messy data into confident product decisions. I design experimentation programs, run rigorous A/B tests, and untangle user journeys so teams stop guessing and start winning.",
@@ -9,16 +19,16 @@ const BIO = [
   "I'm also a big music fan and love going to concerts whenever I can. And I'm definitely a nerd at heart — I've always loved Pokémon, Star Wars, and anime like Bleach, Demon Slayer, Black Clover, and many more.",
 ];
 
-const LIFE_GRID_SHADOWS = [
-  "shadow-[5px_5px_0_#ffcb05]",
-  "shadow-[5px_5px_0_#2a75bb]",
-  "shadow-[5px_5px_0_#e3350d]",
-  "shadow-[5px_5px_0_#3b9c4a]",
-  "shadow-[5px_5px_0_#7b62c9]",
-  "shadow-[5px_5px_0_#f0a30a]",
-  "shadow-[5px_5px_0_#2a75bb]",
-  "shadow-[5px_5px_0_#e3350d]",
-  "shadow-[5px_5px_0_#ffcb05]",
+const LIFE_GRID = [
+  { src: personal1, shadow: "shadow-[5px_5px_0_#ffcb05]" },
+  { src: personal2, shadow: "shadow-[5px_5px_0_#2a75bb]" },
+  { src: personal3, shadow: "shadow-[5px_5px_0_#e3350d]" },
+  { src: personal4, shadow: "shadow-[5px_5px_0_#3b9c4a]" },
+  { src: personal5, shadow: "shadow-[5px_5px_0_#7b62c9]" },
+  { src: personal6, shadow: "shadow-[5px_5px_0_#f0a30a]" },
+  { src: personal7, shadow: "shadow-[5px_5px_0_#2a75bb]" },
+  { src: personal8, shadow: "shadow-[5px_5px_0_#e3350d]" },
+  { src: personal9, shadow: "shadow-[5px_5px_0_#ffcb05]" },
 ];
 
 export default function About() {
@@ -35,7 +45,7 @@ export default function About() {
           className="relative aspect-[4/5] overflow-hidden rounded-[20px] border-4 border-ink shadow-[6px_6px_0_#17171b]"
           style={{ background: "linear-gradient(160deg, #bfe3ff, #2a75bb)" }}
         >
-          <ImageSlot label="Drop your photo or a trainer sprite" className="h-full" variant="transparent" />
+          <Image src={trainerPhoto} alt="Tonya Golden" fill className="object-cover" priority />
           <div className="absolute inset-x-0 bottom-0 truncate bg-[#17171bcc] px-[14px] py-3 font-pixel text-[12px] text-pikachu-yellow">
             TRAINER · TONYA GOLDEN
           </div>
@@ -55,13 +65,19 @@ export default function About() {
       </Reveal>
 
       <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {LIFE_GRID_SHADOWS.map((shadow, i) => (
+        {LIFE_GRID.map((photo, i) => (
           <Reveal
             key={i}
             delay={i * 40}
-            className={`aspect-square overflow-hidden rounded-2xl border-4 border-ink bg-white ${shadow}`}
+            className={`relative aspect-square overflow-hidden rounded-2xl border-4 border-ink bg-white ${photo.shadow}`}
           >
-            <ImageSlot label="Drop a life photo" className="h-full" />
+            <Image
+              src={photo.src}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(min-width: 640px) 33vw, 50vw"
+            />
           </Reveal>
         ))}
       </div>

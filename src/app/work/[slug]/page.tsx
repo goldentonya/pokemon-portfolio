@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import ImageSlot from "@/components/ImageSlot";
 import PokeBallIcon from "@/components/PokeBallIcon";
 import { getProject, projects } from "@/lib/projects";
 
@@ -70,8 +70,8 @@ export default async function ProjectPage({
       </header>
 
       <div className="mx-auto max-w-[1080px] px-[clamp(16px,4vw,40px)]">
-        <div className="aspect-video overflow-hidden rounded-[20px] border-[5px] border-ink bg-white shadow-[8px_8px_0_#2a75bb]">
-          <ImageSlot label="Drop hero screenshot" className="h-full" />
+        <div className="overflow-hidden rounded-[20px] border-[5px] border-ink bg-white shadow-[8px_8px_0_#2a75bb]">
+          <Image src={project.heroImage} alt={`${project.title} — before and after`} className="h-auto w-full" sizes="(min-width: 1080px) 1000px, 100vw" />
         </div>
       </div>
 
@@ -118,12 +118,14 @@ export default async function ProjectPage({
 
       <section className="mx-auto max-w-[1080px] px-[clamp(16px,4vw,40px)] pt-5 pb-[60px]">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <div className="aspect-[4/3] overflow-hidden rounded-2xl border-4 border-ink bg-white shadow-[6px_6px_0_#17171b]">
-            <ImageSlot label="Drop screenshot" className="h-full" />
-          </div>
-          <div className="aspect-[4/3] overflow-hidden rounded-2xl border-4 border-ink bg-white shadow-[6px_6px_0_#17171b]">
-            <ImageSlot label="Drop screenshot" className="h-full" />
-          </div>
+          {project.galleryImages.map((image, i) => (
+            <div
+              key={i}
+              className="overflow-hidden rounded-2xl border-4 border-ink bg-white shadow-[6px_6px_0_#17171b]"
+            >
+              <Image src={image} alt={`${project.title} detail ${i + 1}`} className="h-auto w-full" sizes="(min-width: 640px) 50vw, 100vw" />
+            </div>
+          ))}
         </div>
       </section>
 

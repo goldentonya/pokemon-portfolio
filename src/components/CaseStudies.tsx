@@ -1,8 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import CornerSprite from "./CornerSprite";
-import ImageSlot from "./ImageSlot";
 import Reveal from "./Reveal";
 import { projects } from "@/lib/projects";
+import caseButtonOrig from "@/assets/case-studies/case-button-orig.png";
+import caseButtonVar from "@/assets/case-studies/case-button-var.png";
+import caseLifeTyvVar from "@/assets/case-studies/case-life-tyv-var.png";
+import caseEmailOrig from "@/assets/case-studies/case-email-orig.png";
+import caseEmailVar from "@/assets/case-studies/case-email-var.png";
 
 export default function CaseStudies() {
   return (
@@ -27,7 +32,7 @@ export default function CaseStudies() {
           />
         </Reveal>
 
-        <div className="mt-[22px] grid grid-cols-1 gap-[22px] md:grid-cols-3">
+        <div className="mt-[22px] grid grid-cols-1 gap-[22px] md:grid-cols-2">
           {projects.map((project, i) => (
             <Reveal key={project.slug} delay={i * 60}>
               <Link
@@ -38,8 +43,14 @@ export default function CaseStudies() {
                   <span className="font-pixel text-[11px] text-white">{project.cardTag}</span>
                   <span className="font-pixel text-[11px] text-pikachu-yellow">{project.cardStatus}</span>
                 </div>
-                <div className="h-[150px] overflow-hidden border-b-[3px] border-ink">
-                  <ImageSlot label="Drop project screenshot" className="h-full" />
+                <div className="relative h-[150px] overflow-hidden border-b-[3px] border-ink">
+                  <Image
+                    src={project.cardImage}
+                    alt=""
+                    fill
+                    className="object-cover object-top"
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                  />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <div className="font-heading text-[15px] leading-[1.5] text-ink">{project.title}</div>
@@ -82,16 +93,16 @@ export default function CaseStudies() {
                 <span className="rounded-xl border-2 border-poke-blue bg-chip-blue px-[10px] py-1 font-pixel text-[10px] text-poke-blue">
                   ● ORIGINAL
                 </span>
-                <div className="mt-[10px] aspect-[3/4] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                  <ImageSlot label="original screenshot" className="h-full text-[9px]" />
+                <div className="relative mt-[10px] aspect-[3/4] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
+                  <Image src={caseButtonOrig} alt="Original red CTA button" fill className="object-cover object-top" sizes="(min-width: 1024px) 25vw, 45vw" />
                 </div>
               </div>
               <div>
                 <span className="rounded-xl border-2 border-fire-red bg-[#fdece9] px-[10px] py-1 font-pixel text-[10px] text-fire-red">
                   ● VARIANT
                 </span>
-                <div className="mt-[10px] aspect-[3/4] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                  <ImageSlot label="variant screenshot" className="h-full text-[9px]" />
+                <div className="relative mt-[10px] aspect-[3/4] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
+                  <Image src={caseButtonVar} alt="Variant orange CTA button" fill className="object-cover object-top" sizes="(min-width: 1024px) 25vw, 45vw" />
                 </div>
               </div>
             </div>
@@ -135,8 +146,8 @@ export default function CaseStudies() {
               <span className="rounded-xl border-2 border-grass-green bg-[#eaf7ec] px-[10px] py-1 font-pixel text-[10px] text-grass-green">
                 ● WINNING VARIANT
               </span>
-              <div className="mt-[10px] aspect-video overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                <ImageSlot label="winning variant screenshot" className="h-full text-[9px]" />
+              <div className="relative mt-[10px] aspect-video overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
+                <Image src={caseLifeTyvVar} alt="LifeCompared winning Thank You Video variant" fill className="object-cover object-top" sizes="(min-width: 1024px) 45vw, 90vw" />
               </div>
             </div>
             <p className="mt-5 text-[15px] leading-[1.6] text-body">
@@ -166,6 +177,56 @@ export default function CaseStudies() {
               <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#2a75bb]">
                 <div className="font-heading text-[20px] text-[#7fbaff]">6.90%</div>
                 <div className="mt-2 font-pixel text-[10px] text-dark-text">LEAD-TO-POLICY</div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* experiment 3 — spans full width */}
+          <Reveal className="flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] shadow-[6px_6px_0_#3b9c4a] lg:col-span-2">
+            <div className="font-heading text-[12px] text-poke-blue">▸ EMAIL CAPTURE TEST</div>
+            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">EMAIL FIELD PLACEMENT</div>
+            <div className="mt-5 grid grid-cols-1 gap-[14px] sm:grid-cols-2">
+              <div>
+                <span className="rounded-xl border-2 border-poke-blue bg-chip-blue px-[10px] py-1 font-pixel text-[10px] text-poke-blue">
+                  ● ORIGINAL
+                </span>
+                <div className="relative mt-[10px] aspect-[4/3] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
+                  <Image src={caseEmailOrig} alt="Original quote funnel step without an email field" fill className="object-cover object-top" sizes="(min-width: 640px) 45vw, 90vw" />
+                </div>
+              </div>
+              <div>
+                <span className="rounded-xl border-2 border-fire-red bg-[#fdece9] px-[10px] py-1 font-pixel text-[10px] text-fire-red">
+                  ● VARIANT
+                </span>
+                <div className="relative mt-[10px] aspect-[4/3] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
+                  <Image src={caseEmailVar} alt="Variant quote funnel step with an email field added" fill className="object-cover object-top" sizes="(min-width: 640px) 45vw, 90vw" />
+                </div>
+              </div>
+            </div>
+            <p className="mt-5 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Problem:</b> The quote funnel didn&rsquo;t collect an email address until late
+              in the flow, so anyone who dropped off early couldn&rsquo;t be followed up with.
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Action:</b> Tested adding an email address field earlier in the multi-step
+              quote flow, alongside the existing county, date of birth, and gender questions.
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Result:</b> <span className="text-body/70">Add your real result here — e.g. email capture rate or downstream follow-up conversion.</span>
+            </p>
+            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <div className="font-pixel text-[12px] leading-[2]">
+                <div className="text-body">
+                  <span className="text-[#9aa0ac]">●</span> ORIGINAL: —
+                </div>
+                <div className="text-ink">
+                  <span className="text-grass-green">●</span> VARIANT: —
+                </div>
+              </div>
+              <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#3b9c4a]">
+                <div className="font-heading text-[20px] text-[#6cc47a]">TBD</div>
+                <div className="mt-2 font-pixel text-[10px] text-dark-text">AWAITING RESULT</div>
               </div>
             </div>
           </Reveal>

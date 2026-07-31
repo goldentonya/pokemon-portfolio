@@ -1,3 +1,13 @@
+import type { StaticImageData } from "next/image";
+
+import overboardArtHero from "@/assets/overboard-art/homepage-comparison.jpg";
+import overboardArtGallery1 from "@/assets/overboard-art/portfolio-collections-new.jpg";
+import overboardArtGallery2 from "@/assets/overboard-art/single-portfolio-comparison.jpg";
+
+import wrensHollowHero from "@/assets/wrens-hollow/homepage-comparison.jpg";
+import wrensHollowGallery1 from "@/assets/wrens-hollow/shop-comparison.jpg";
+import wrensHollowGallery2 from "@/assets/wrens-hollow/about-comparison.jpg";
+
 export type Project = {
   slug: string;
   /** Card header eyebrow, e.g. "REDESIGN · SAAS" */
@@ -6,6 +16,7 @@ export type Project = {
   title: string;
   cardDescription: string;
   cardChips: string[];
+  cardImage: StaticImageData;
   /** Detail page hero pill */
   pageEyebrow: string;
   headingLine1: string;
@@ -20,101 +31,78 @@ export type Project = {
   outcome: string;
   tools: string[];
   ctaLabel: string;
+  heroImage: StaticImageData;
+  galleryImages: [StaticImageData, StaticImageData];
 };
 
 export const projects: Project[] = [
   {
-    slug: "marketing-site-rebuild",
-    cardTag: "REDESIGN · SAAS",
+    slug: "overboard-art",
+    cardTag: "REDESIGN · MARINE ART",
     cardStatus: "SHIPPED",
-    title: "MARKETING SITE REBUILD",
+    title: "OVERBOARD ART",
     cardDescription:
-      "Designed and coded a responsive marketing site from scratch — faster loads, cleaner IA, a modern component system.",
-    cardChips: ["FIGMA", "HTML/CSS", "JAVASCRIPT"],
+      "Rebuilt a marine artist's single-page site into a real portfolio that actually shows off the craftsmanship.",
+    cardChips: ["REACT", "TANSTACK", "TAILWIND"],
+    cardImage: overboardArtHero,
     pageEyebrow: "WEB DESIGN / DEVELOPMENT",
-    headingLine1: "MARKETING SITE",
-    headingLine2: "REBUILD",
+    headingLine1: "OVERBOARD",
+    headingLine2: "ART",
     summary:
-      "A ground-up redesign and rebuild of a SaaS marketing site — faster loads, cleaner information architecture, and a modern component system the whole team could build on.",
+      "A full redesign and rebuild for Overboard Art, Kelly Davis's custom marine art and yacht-finishing studio — turning a single cluttered WordPress page into a portfolio site that actually shows the craftsmanship.",
     role: "DESIGN + FRONT-END",
-    year: "2023",
-    type: "FULL SITE REBUILD",
+    year: "2026",
+    type: "SITE REBUILD",
     overview:
-      "The existing site had grown organically over years — inconsistent styling, slow pages, and a structure that made it hard for visitors to find what they needed. The goal was a rebuild that looked modern, loaded fast, and gave the marketing team a system they could extend without a developer for every change.",
+      "Kelly Davis needed a site that matched the quality of her work — hand-painted yacht lettering, gold leaf, faux teak, and marine murals — but the old site was a single WordPress page with no real portfolio structure, just a blog feed of past posts.",
     challenge:
-      "Balance a bold visual refresh with real performance gains, migrate years of content without losing SEO, and ship a component library the team could actually maintain.",
+      "Give years of custom marine artwork a home that actually showcases it — a real portfolio broken into collections — without losing the personal, one-craftsperson feel of the business.",
     whatIDid: [
-      "Audited the old site and mapped a cleaner information architecture.",
-      "Designed a fresh visual system in Figma, from type scale to components.",
-      "Built the front-end from scratch with semantic, accessible HTML/CSS.",
-      "Created reusable sections so marketing could assemble pages on their own.",
+      "Rebuilt the site in React with TanStack Start and Tailwind CSS.",
+      "Designed a dark, editorial visual system built around real project photography.",
+      "Organized the work into browsable collections — Faux Teak, Gold Leaf, Yacht Lettering & Transoms, Marlins & Sailfish, Pyrography, Signage, and Airbrush & Detail.",
+      "Built out an individual gallery page for each collection so every commission gets its own showcase.",
     ],
     outcome:
-      "Page load times dropped noticeably, the bounce rate improved, and the team shipped new landing pages in hours instead of weeks — all on a consistent, on-brand foundation.",
-    tools: ["FIGMA", "HTML / CSS", "JAVASCRIPT", "RESPONSIVE UI", "SEO", "A11Y"],
+      "The site went from a single unstructured blog page to a real portfolio that reflects the craftsmanship behind the work, giving Kelly a place to send prospective clients that actually sells the work for her.",
+    tools: ["REACT", "TANSTACK START", "TYPESCRIPT", "TAILWIND CSS", "FRAMER MOTION"],
     ctaLabel: "VISIT LIVE SITE",
+    heroImage: overboardArtHero,
+    galleryImages: [overboardArtGallery1, overboardArtGallery2],
   },
   {
-    slug: "high-convert-landing",
-    cardTag: "LANDING · E-COMMERCE",
+    slug: "wrens-hollow",
+    cardTag: "AUTHOR SITE · E-COMMERCE",
     cardStatus: "SHIPPED",
-    title: "HIGH-CONVERT LANDING",
+    title: "THE WREN'S HOLLOW",
     cardDescription:
-      "Built a conversion-first landing page with a clear hierarchy and pixel-tight front-end for a product launch.",
-    cardChips: ["HTML/CSS", "TAILWIND", "A/B TESTING"],
+      "Rebuilt indie author Ali Wren's site on WordPress + WooCommerce, with a real shop, cart, and checkout.",
+    cardChips: ["WORDPRESS", "WOOCOMMERCE", "PHP"],
+    cardImage: wrensHollowHero,
     pageEyebrow: "WEB DESIGN / DEVELOPMENT",
-    headingLine1: "HIGH-CONVERT",
-    headingLine2: "LANDING PAGE",
+    headingLine1: "THE WREN'S",
+    headingLine2: "HOLLOW",
     summary:
-      "A conversion-first landing page for a product launch — a clear message hierarchy, pixel-tight front-end, and a layout designed from the ground up to be tested and improved.",
-    role: "DESIGN + FRONT-END",
-    year: "2024",
-    type: "LANDING PAGE",
+      "A full redesign and WordPress rebuild for author Ali Wren — a book-series-driven site with a working shop, cart, and checkout for signed paperbacks.",
+    role: "DESIGN + WORDPRESS DEV",
+    year: "2026",
+    type: "SITE REBUILD + E-COMMERCE",
     overview:
-      "The launch needed a page that could carry paid traffic and convert cold visitors fast. I designed and built it around a single, focused message with every section earning its place — and instrumented it so we could keep testing after launch.",
+      "Ali needed a site that could carry two book series, sell signed copies directly to readers, and give fans a real hub for events and updates — built on WordPress since that's the platform she can maintain herself long after launch.",
     challenge:
-      "Communicate a new product's value in seconds, keep the page fast on mobile, and structure it so we could run A/B tests on the highest-impact elements without rebuilding.",
+      "Design a romance/dark-fantasy-appropriate visual system on top of a structure-only wireframe handoff, then wire up a real WooCommerce store the client could run without a developer.",
     whatIDid: [
-      "Designed a tight message hierarchy from hero to final CTA.",
-      "Built a fast, mobile-first front-end with clean, testable markup.",
-      "Set up analytics and event tracking for every key interaction.",
-      "Wired the layout for easy A/B testing of headlines and CTAs.",
+      "Designed a plum-and-parchment visual system fit for a romance/dark-fantasy author brand.",
+      "Built a custom WordPress theme reproducing the design across every page.",
+      "Wired up WooCommerce for signed-copy sales, including cart and checkout.",
+      "Built dedicated pages for each book series and individual titles.",
     ],
     outcome:
-      "The page launched on time, converted well from day one, and became a testing ground for a series of experiments that pushed conversion higher over the following months.",
-    tools: ["HTML / CSS", "TAILWIND", "JAVASCRIPT", "A/B TESTING", "GA4", "CRO"],
+      "Ali now has a site she can run herself — real book sales, an events hub, and a homepage that sells the fantasy/romance vibe instead of a bare WordPress default.",
+    tools: ["WORDPRESS", "WOOCOMMERCE", "PHP", "HTML / CSS", "JAVASCRIPT"],
     ctaLabel: "VISIT LIVE SITE",
-  },
-  {
-    slug: "component-library",
-    cardTag: "DESIGN SYSTEM · FINTECH",
-    cardStatus: "SHIPPED",
-    title: "COMPONENT LIBRARY",
-    cardDescription:
-      "Created a reusable component library so the team could design and build consistent, on-brand pages fast.",
-    cardChips: ["FIGMA", "REACT", "STORYBOOK"],
-    pageEyebrow: "WEB DESIGN / DEVELOPMENT",
-    headingLine1: "COMPONENT",
-    headingLine2: "LIBRARY",
-    summary:
-      "A reusable component library and design system for a fintech product — so designers and engineers could build consistent, on-brand pages quickly and confidently.",
-    role: "DESIGN SYSTEMS",
-    year: "2022",
-    type: "DESIGN SYSTEM",
-    overview:
-      "As the product grew, every new page reinvented buttons, forms, and layouts, and things drifted out of sync. I built a shared component library that gave the team a single source of truth for design and code.",
-    challenge:
-      "Bring design and engineering onto the same system, keep it flexible enough for real product needs, and document it so people would actually use it.",
-    whatIDid: [
-      "Defined design tokens for color, type, and spacing in Figma.",
-      "Built accessible React components mirrored to the Figma library.",
-      "Documented usage and states in Storybook for the whole team.",
-      "Rolled it out with guidelines so adoption stuck.",
-    ],
-    outcome:
-      "Pages became consistent and on-brand by default, design-to-dev handoff got dramatically faster, and the team shipped new features without rebuilding the basics every time.",
-    tools: ["FIGMA", "REACT", "STORYBOOK", "DESIGN TOKENS", "CSS", "A11Y"],
-    ctaLabel: "VIEW THE SYSTEM",
+    heroImage: wrensHollowHero,
+    galleryImages: [wrensHollowGallery1, wrensHollowGallery2],
   },
 ];
 
