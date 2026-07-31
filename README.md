@@ -29,6 +29,11 @@ src/
                           # PokeBallIcon, ImageSlot
   lib/
     projects.ts           # case-study content (shared by the cards + detail pages)
+  assets/                  # real photos/screenshots, imported via next/image
+    about/                 # trainer photo + life-grid photos
+    case-studies/           # A/B experiment screenshots
+    overboard-art/          # Overboard Art before/after + gallery images
+    wrens-hollow/           # The Wren's Hollow before/after + gallery images
 public/
   sprites/                 # Pokémon mascot sprites
 ```
@@ -73,16 +78,24 @@ docker run -p 3000:3000 pokemon-portfolio
 
 ## Content still to drop in
 
-The design handoff's photos/screenshots are placeholders (per the original spec). Real assets
-still need to be added in these spots:
+Real photos and case studies are wired in. What's still outstanding:
 
-- About: trainer photo + 3×3 life-photo grid
-- Experience: company logos (2)
-- Case Studies: 3 project card screenshots, 2 project hero images + 4 gallery screenshots
-  (`src/app/work/[slug]/page.tsx`), 2 A/B test experiment screenshots
-- Contact: `/resume.pdf` (drop the file into `public/`) and the real booking-call link
-- Real email is already wired to `hello@tonyagolden.dev` — update in `src/components/Contact.tsx`
-  if that should change
+- **Case Studies → Email Capture Test**: the third A/B experiment card
+  (`src/components/CaseStudies.tsx`) uses real screenshots but the result copy and stat box are
+  placeholders ("Add your real result here" / "TBD") — needs the real conversion numbers.
+- **Case Studies → project links**: both real case-study pages' "VISIT LIVE SITE" buttons
+  (`src/app/work/[slug]/page.tsx`) still point to `#` — needs the real live URLs for Overboard
+  Art and The Wren's Hollow.
+- **Experience**: company logos are still placeholders (the company names are intentionally kept
+  generic, so no real logos were provided for these).
+- **Contact**: `/resume.pdf` (drop the file into `public/`) and the real booking-call link.
+  Email is already wired to `hello@tonyagolden.dev` — update in `src/components/Contact.tsx` if
+  that should change.
+- **Unused assets**: `src/assets/case-studies/case-tyv-*.png` (extra Medicare Thank You Video
+  creative variants) and a few `overboard-art`/`wrens-hollow` comparison images weren't used in
+  the current layout — available if you want to expand either section later.
+- **Brand logo**: `src/assets/main_logo.png` (full wordmark) is available but unused; the icon
+  version is already wired up as the favicon/apple-touch-icon.
 
 ## Known follow-ups
 
