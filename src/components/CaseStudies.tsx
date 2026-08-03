@@ -274,7 +274,7 @@ export default function CaseStudies() {
           <Reveal className={`flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] ${creativeTest.shadowClass}`}>
             <div className="font-heading text-[12px] text-poke-blue">▸ {creativeTest.eyebrow}</div>
             <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">{creativeTest.title}</div>
-            <div className="mt-5 grid grid-cols-2 gap-[14px]">
+            <div className="mt-5 grid grid-cols-2 gap-[14px] sm:grid-cols-4">
               {creativeTest.images.map((image, i) => (
                 <div key={image.label}>
                   <span className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${image.chipClass}`}>

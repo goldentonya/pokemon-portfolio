@@ -19,11 +19,11 @@ export default function ExperimentGallery({ images }: { images: ExperimentImage[
     images.length === 1
       ? "grid-cols-1"
       : images.length >= 4
-        ? "grid-cols-2 lg:grid-cols-4"
+        ? "grid-cols-2 sm:grid-cols-4"
         : "grid-cols-1 sm:grid-cols-2";
 
   const imageSizes =
-    images.length >= 4 ? "(min-width: 1024px) 22vw, 45vw" : "(min-width: 640px) 45vw, 90vw";
+    images.length >= 4 ? "(min-width: 640px) 22vw, 45vw" : "(min-width: 640px) 45vw, 90vw";
 
   return (
     <>
