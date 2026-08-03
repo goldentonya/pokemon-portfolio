@@ -1,55 +1,48 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import CornerSprite from "./CornerSprite";
+import Lightbox from "./Lightbox";
 import Reveal from "./Reveal";
 import trainerPhoto from "@/assets/about/trainer-photo.jpg";
-import personal1 from "@/assets/about/personal-1.jpg";
-import personal2 from "@/assets/about/personal-2.jpg";
-import personal3 from "@/assets/about/personal-3.jpg";
-import personal4 from "@/assets/about/personal-4.jpg";
-import personal5 from "@/assets/about/personal-5.jpg";
-import personal6 from "@/assets/about/personal-6.jpg";
-import personal7 from "@/assets/about/personal-7.jpg";
-import personal8 from "@/assets/about/personal-8.jpg";
-import personal9 from "@/assets/about/personal-9.jpg";
 
 const BIO = [
-  "I'm Tonya Golden, a conversion optimization expert who's spent 12+ years turning messy data into confident product decisions. I design experimentation programs, run rigorous A/B tests, and untangle user journeys so teams stop guessing and start winning.",
-  "Think of me as your battle strategist: every hypothesis is a matchup, every metric a move, and the data always calls the shot.",
-  "Travel is a big passion of mine, and I'm always looking forward to the next trip. At the top of my bucket list is visiting Japan, a place I've wanted to experience for a long time.",
-  "I'm also a big music fan and love going to concerts whenever I can. And I'm definitely a nerd at heart — I've always loved Pokémon, Star Wars, and anime like Bleach, Demon Slayer, Black Clover, and many more.",
+  "I'm Tonya Golden, a front end developer and UI/UX designer who's spent 12+ years building interfaces people actually enjoy using. I design clean, accessible layouts and pair them with conversion rate optimization, running A/B tests to prove which experience truly performs best.",
+  "Think of me as your battle strategist: every layout is a matchup, every interaction a move, and the user experience always calls the shot.",
 ];
 
-const LIFE_GRID = [
-  { src: personal1, shadow: "shadow-[5px_5px_0_#ffcb05]" },
-  { src: personal2, shadow: "shadow-[5px_5px_0_#2a75bb]" },
-  { src: personal3, shadow: "shadow-[5px_5px_0_#e3350d]" },
-  { src: personal4, shadow: "shadow-[5px_5px_0_#3b9c4a]" },
-  { src: personal5, shadow: "shadow-[5px_5px_0_#7b62c9]" },
-  { src: personal6, shadow: "shadow-[5px_5px_0_#f0a30a]" },
-  { src: personal7, shadow: "shadow-[5px_5px_0_#2a75bb]" },
-  { src: personal8, shadow: "shadow-[5px_5px_0_#e3350d]" },
-  { src: personal9, shadow: "shadow-[5px_5px_0_#ffcb05]" },
-];
+const LIGHTBOX_IMAGES = [{ src: trainerPhoto, alt: "Tonya Golden" }];
 
 export default function About() {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   return (
-    <section
-      id="about"
-      className="relative mx-auto max-w-[1160px] overflow-hidden px-[clamp(16px,4vw,40px)] py-[clamp(56px,9vw,88px)] pb-[60px]"
-    >
-      <CornerSprite src="/sprites/pikachu-pixel-b4bcc4ea.png" corner="top" side="left" size={96} />
+    <section id="about" className="relative overflow-hidden border-y-[5px] border-ink bg-blush-band">
+      <CornerSprite src="/sprites/pikachu-pixel-b4bcc4ea.png" corner="top" side="left" size={96} flip />
       <CornerSprite src="/sprites/gengar-0f29c816.png" corner="bottom" side="right" size={96} durationMs={3200} />
 
+      <div className="relative z-2 mx-auto max-w-[1160px] px-[clamp(16px,4vw,40px)] py-[clamp(56px,9vw,88px)] pb-[60px]">
       <Reveal className="grid grid-cols-1 items-start gap-11 md:grid-cols-[.85fr_1.15fr]">
-        <div
-          className="relative aspect-[4/5] overflow-hidden rounded-[20px] border-4 border-ink shadow-[6px_6px_0_#17171b]"
+        <button
+          type="button"
+          onClick={() => setLightboxIndex(0)}
+          aria-label="View larger photo of Tonya Golden"
+          className="group relative aspect-[4/5] cursor-zoom-in overflow-hidden rounded-[20px] border-4 border-ink shadow-[6px_6px_0_#17171b] focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-poke-blue"
           style={{ background: "linear-gradient(160deg, #bfe3ff, #2a75bb)" }}
         >
-          <Image src={trainerPhoto} alt="Tonya Golden" fill className="object-cover" priority />
+          <Image
+            src={trainerPhoto}
+            alt="Tonya Golden"
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            priority
+          />
           <div className="absolute inset-x-0 bottom-0 truncate bg-[#17171bcc] px-[14px] py-3 font-pixel text-[12px] text-pikachu-yellow">
             TRAINER · TONYA GOLDEN
           </div>
-        </div>
+        </button>
 
         <div>
           <div className="font-heading text-[14px] text-poke-blue">▸ THE TRAINER</div>
@@ -57,29 +50,26 @@ export default function About() {
             DATA IS <span className="text-fire-red">SUPER EFFECTIVE</span>
           </h2>
           {BIO.map((paragraph, i) => (
-            <p key={i} className="mt-4 text-[19px] leading-[1.7] text-body first:mt-[22px]">
+            <p key={i} className="mt-4 text-[clamp(16px,4.2vw,19px)] leading-[1.7] text-body first:mt-[22px]">
               {paragraph}
             </p>
           ))}
+          <p className="mt-4 text-[clamp(16px,4.2vw,19px)] leading-[1.7] text-body">
+            Want to know what I&rsquo;m like outside of work? Learn more about me{" "}
+            <Link href="/about" className="font-heading text-poke-blue underline underline-offset-4">
+              here
+            </Link>
+            .
+          </p>
         </div>
       </Reveal>
 
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {LIFE_GRID.map((photo, i) => (
-          <Reveal
-            key={i}
-            delay={i * 40}
-            className={`relative aspect-square overflow-hidden rounded-2xl border-4 border-ink bg-white ${photo.shadow}`}
-          >
-            <Image
-              src={photo.src}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(min-width: 640px) 33vw, 50vw"
-            />
-          </Reveal>
-        ))}
+      <Lightbox
+        images={LIGHTBOX_IMAGES}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
       </div>
     </section>
   );

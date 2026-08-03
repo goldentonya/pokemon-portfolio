@@ -23,8 +23,8 @@ const SERVICES: { badge: string; badgeClass: string; title: string; body: string
   {
     badge: "PSYCHIC",
     badgeClass: "bg-psychic-purple text-white",
-    title: "UX RESEARCH",
-    body: "Interviews and usability studies that reveal the real why.",
+    title: "UI DESIGN",
+    body: "Clean, on brand interfaces built to convert, not just to look good.",
   },
   {
     badge: "GRASS",
@@ -35,24 +35,24 @@ const SERVICES: { badge: string; badgeClass: string; title: string; body: string
   {
     badge: "ELECTRIC",
     badgeClass: "bg-pikachu-yellow text-ink",
-    title: "EXPERIMENTATION PROGRAMS",
-    body: "Stand up a testing culture and the process to sustain it.",
+    title: "FRONT END DEVELOPMENT",
+    body: "Fast, responsive sites built with clean, maintainable code.",
   },
 ];
 
 export default function Services() {
   return (
     <section id="services" className="relative overflow-hidden border-y-[5px] border-ink bg-light-blue-band">
-      <CornerSprite src="/sprites/gengar-0f29c816.png" corner="top" side="right" size={100} durationMs={3200} />
-      <CornerSprite src="/sprites/bulbasaur-pixel-92942b42.png" corner="bottom" side="left" size={110} />
+      <CornerSprite src="/sprites/mewtwo-pixel-2-7491df59.png" corner="top" side="right" size={100} durationMs={3200} flip />
+      <CornerSprite src="/sprites/bulbasaur-pixel-92942b42.png" corner="bottom" side="left" size={110} flip />
 
-      <div className="mx-auto max-w-[1160px] px-[clamp(16px,4vw,40px)] py-[clamp(56px,8vw,80px)]">
+      <div className="relative z-2 mx-auto max-w-[1160px] px-[clamp(16px,4vw,40px)] py-[clamp(56px,8vw,80px)]">
         <Reveal className="text-center">
           <div className="font-heading text-[14px] text-psychic-purple">▸ CHOOSE YOUR MOVES</div>
           <h2 className="mt-4 font-heading text-[clamp(20px,4vw,28px)] leading-[1.5] text-ink">SERVICES</h2>
         </Reveal>
 
-        <div className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+        <div className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service, i) => (
             <Reveal
               key={service.title}

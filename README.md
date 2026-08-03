@@ -86,9 +86,10 @@ and the brand logo as favicon/OG image). What's still outstanding:
   (`src/components/CaseStudies.tsx`) use real screenshots but the result copy and stat boxes are
   still placeholders ("Add your real result here" / "TBD") — needs the real conversion numbers
   for the email-field test and the Thank You Video creative test.
-- **Case Studies → project links**: both real case-study pages' "VISIT LIVE SITE" buttons
-  (`src/app/work/[slug]/page.tsx`) still point to `#` — needs the real live URLs for Overboard
-  Art and The Wren's Hollow.
+- **Case Studies → project links**: both real case-study pages need the real live URLs for Overboard
+  Art and The Wren's Hollow. Set the optional `liveUrl` field on each project in
+  `src/lib/projects.ts`; until it's set, the sidebar CTA renders a non-interactive
+  "VISIT LIVE SITE — COMING SOON" chip instead of a dead link.
 - **Experience**: company logos are still placeholders (the company names are intentionally kept
   generic, so no real logos were provided for these).
 - **Contact**: `/resume.pdf` (drop the file into `public/`) and the real booking-call link.

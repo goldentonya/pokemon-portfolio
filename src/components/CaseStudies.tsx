@@ -1,32 +1,36 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import CornerSprite from "./CornerSprite";
+import Lightbox from "./Lightbox";
 import Reveal from "./Reveal";
 import { projects } from "@/lib/projects";
-import caseButtonOrig from "@/assets/case-studies/case-button-orig.png";
-import caseButtonVar from "@/assets/case-studies/case-button-var.png";
-import caseLifeTyvVar from "@/assets/case-studies/case-life-tyv-var.png";
-import caseEmailOrig from "@/assets/case-studies/case-email-orig.png";
-import caseEmailVar from "@/assets/case-studies/case-email-var.png";
-import caseTyvOrig from "@/assets/case-studies/case-tyv-orig.png";
-import caseTyvVar2 from "@/assets/case-studies/case-tyv-var2.png";
-import caseTyvVar3 from "@/assets/case-studies/case-tyv-var3.png";
-import caseTyvVar4 from "@/assets/case-studies/case-tyv-var4.png";
+import { experiments } from "@/lib/experiments";
 
-const TYV_VARIANTS = [
-  { src: caseTyvOrig, label: "ORIGINAL", labelClass: "border-poke-blue bg-chip-blue text-poke-blue" },
-  { src: caseTyvVar2, label: "VARIANT B", labelClass: "border-fire-red bg-[#fdece9] text-fire-red" },
-  { src: caseTyvVar3, label: "VARIANT C", labelClass: "border-accent-orange bg-[#fdf1e3] text-accent-orange" },
-  { src: caseTyvVar4, label: "VARIANT D", labelClass: "border-grass-green bg-[#eaf7ec] text-grass-green" },
-];
+const [buttonTest, funnelTest, emailTest, creativeTest] = experiments;
+
+const AB_LIGHTBOX_IMAGES = experiments.flatMap((experiment) =>
+  experiment.images.map((image) => ({ src: image.src, alt: image.alt }))
+);
+
+/** Starting lightbox index for each experiment, derived from image counts above it. */
+const EXPERIMENT_IMAGE_OFFSETS = experiments.reduce<number[]>((offsets, _experiment, i) => {
+  offsets.push(i === 0 ? 0 : offsets[i - 1] + experiments[i - 1].images.length);
+  return offsets;
+}, []);
+const [buttonOffset, funnelOffset, emailOffset, creativeOffset] = EXPERIMENT_IMAGE_OFFSETS;
 
 export default function CaseStudies() {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   return (
     <section id="work" className="relative overflow-hidden bg-cream">
-      <CornerSprite src="/sprites/blastoise-pixel-1bb26919.png" corner="top" side="left" size={110} durationMs={3400} />
-      <CornerSprite src="/sprites/charizard-pixel-464af05b.png" corner="bottom" side="right" size={104} />
+      <CornerSprite src="/sprites/blastoise-pixel-1bb26919.png" corner="top" side="right" size={110} durationMs={3400} flip />
+      <CornerSprite src="/sprites/charizard-pixel-464af05b.png" corner="bottom" side="left" size={104} flip />
 
-      <div className="mx-auto max-w-[1160px] px-[clamp(16px,4vw,40px)] py-[clamp(56px,9vw,88px)]">
+      <div className="relative z-2 mx-auto max-w-[1160px] px-[clamp(16px,4vw,40px)] py-[clamp(56px,9vw,88px)]">
         <Reveal className="text-center">
           <div className="font-heading text-[14px] text-poke-blue">▸ IT&rsquo;S SUPER EFFECTIVE!</div>
           <h2 className="mt-4 font-heading text-[clamp(20px,4vw,28px)] leading-[1.5] text-ink">CASE STUDIES</h2>
@@ -94,212 +98,249 @@ export default function CaseStudies() {
           />
         </Reveal>
 
-        <div className="mt-[22px] grid grid-cols-1 gap-[22px] lg:grid-cols-2">
+        <div className="mt-[22px] grid grid-cols-1 gap-[22px] md:grid-cols-2">
           {/* experiment 1 */}
-          <Reveal className="flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] shadow-[6px_6px_0_#e3350d]">
-            <div className="font-heading text-[12px] text-poke-blue">▸ CTA COLOR TEST</div>
-            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">BUTTON COLOR CHANGE</div>
+          <Reveal className={`flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] ${buttonTest.shadowClass}`}>
+            <div className="font-heading text-[12px] text-poke-blue">▸ {buttonTest.eyebrow}</div>
+            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">{buttonTest.title}</div>
             <div className="mt-5 grid grid-cols-2 gap-[14px]">
-              <div>
-                <span className="rounded-xl border-2 border-poke-blue bg-chip-blue px-[10px] py-1 font-pixel text-[10px] text-poke-blue">
-                  ● ORIGINAL
-                </span>
-                <div className="relative mt-[10px] aspect-[3/4] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                  <Image src={caseButtonOrig} alt="Original red CTA button" fill className="object-cover object-top" sizes="(min-width: 1024px) 25vw, 45vw" />
-                </div>
-              </div>
-              <div>
-                <span className="rounded-xl border-2 border-fire-red bg-[#fdece9] px-[10px] py-1 font-pixel text-[10px] text-fire-red">
-                  ● VARIANT
-                </span>
-                <div className="relative mt-[10px] aspect-[3/4] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                  <Image src={caseButtonVar} alt="Variant orange CTA button" fill className="object-cover object-top" sizes="(min-width: 1024px) 25vw, 45vw" />
-                </div>
-              </div>
-            </div>
-            <p className="mt-5 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Problem:</b> While auditing competitor websites, I noticed many were using
-              orange CTA buttons while we were using red. I wanted to test whether the color shift would lift our
-              click rate.
-            </p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Action:</b> Ran an A/B test on the primary CTA, swapping the red button for an
-              orange variant while keeping copy and placement identical.
-            </p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Result:</b> The orange variant outperformed the red control, lifting click rate
-              from 43.61% to 44.26%, a small change with meaningful downstream impact at scale.
-            </p>
-            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
-            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-              <div className="font-pixel text-[12px] leading-[2]">
-                <div className="text-body">
-                  <span className="text-[#9aa0ac]">●</span> ORIGINAL (RED): 43.61%
-                </div>
-                <div className="text-ink">
-                  <span className="text-fire-red">●</span> VARIANT (ORANGE): 44.26%
-                </div>
-              </div>
-              <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#e3350d]">
-                <div className="font-heading text-[20px] text-[#ff8a7a]">44.26%</div>
-                <div className="mt-2 font-pixel text-[10px] text-dark-text">VARIANT CLICK RATE</div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* experiment 2 */}
-          <Reveal className="flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] shadow-[6px_6px_0_#2a75bb]">
-            <div className="font-heading text-[12px] text-poke-blue">▸ FUNNEL OPTIMIZATION</div>
-            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">
-              LIFECOMPARED THANK YOU VIDEO
-            </div>
-            <div className="mt-5">
-              <span className="rounded-xl border-2 border-grass-green bg-[#eaf7ec] px-[10px] py-1 font-pixel text-[10px] text-grass-green">
-                ● WINNING VARIANT
-              </span>
-              <div className="relative mt-[10px] aspect-video overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                <Image src={caseLifeTyvVar} alt="LifeCompared winning Thank You Video variant" fill className="object-cover object-top" sizes="(min-width: 1024px) 45vw, 90vw" />
-              </div>
-            </div>
-            <p className="mt-5 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Problem:</b> After a Thank You Video boosted performance in our Medicare flow,
-              we wanted to validate the same play in our Life Insurance funnel to drive higher lead-to-policy
-              conversion.
-            </p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Action:</b> Tested two Thank You Video variations on the LifeCompared
-              confirmation page (one AI-generated and one featuring our director on camera), measuring downstream
-              lead-to-policy.
-            </p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Result:</b> The director-led video won, lifting lead-to-policy from 5.8% to
-              6.9% and confirming that authentic, human-led video outperformed the AI alternative.
-            </p>
-            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
-            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-              <div className="font-pixel text-[12px] leading-[2]">
-                <div className="text-body">
-                  <span className="text-[#9aa0ac]">●</span> ORIGINAL: 5.8%
-                </div>
-                <div className="text-ink">
-                  <span className="text-poke-blue">●</span> WINNING VARIANT: 6.9%
-                </div>
-              </div>
-              <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#2a75bb]">
-                <div className="font-heading text-[20px] text-[#7fbaff]">6.90%</div>
-                <div className="mt-2 font-pixel text-[10px] text-dark-text">LEAD-TO-POLICY</div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* experiment 3 — spans full width */}
-          <Reveal className="flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] shadow-[6px_6px_0_#3b9c4a] lg:col-span-2">
-            <div className="font-heading text-[12px] text-poke-blue">▸ EMAIL CAPTURE TEST</div>
-            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">EMAIL FIELD PLACEMENT</div>
-            <div className="mt-5 grid grid-cols-1 gap-[14px] sm:grid-cols-2">
-              <div>
-                <span className="rounded-xl border-2 border-poke-blue bg-chip-blue px-[10px] py-1 font-pixel text-[10px] text-poke-blue">
-                  ● ORIGINAL
-                </span>
-                <div className="relative mt-[10px] aspect-[4/3] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                  <Image src={caseEmailOrig} alt="Original quote funnel step without an email field" fill className="object-cover object-top" sizes="(min-width: 640px) 45vw, 90vw" />
-                </div>
-              </div>
-              <div>
-                <span className="rounded-xl border-2 border-fire-red bg-[#fdece9] px-[10px] py-1 font-pixel text-[10px] text-fire-red">
-                  ● VARIANT
-                </span>
-                <div className="relative mt-[10px] aspect-[4/3] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                  <Image src={caseEmailVar} alt="Variant quote funnel step with an email field added" fill className="object-cover object-top" sizes="(min-width: 640px) 45vw, 90vw" />
-                </div>
-              </div>
-            </div>
-            <p className="mt-5 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Problem:</b> The quote funnel didn&rsquo;t collect an email address until late
-              in the flow, so anyone who dropped off early couldn&rsquo;t be followed up with.
-            </p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Action:</b> Tested adding an email address field earlier in the multi-step
-              quote flow, alongside the existing county, date of birth, and gender questions.
-            </p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Result:</b> <span className="text-body/70">Add your real result here — e.g. email capture rate or downstream follow-up conversion.</span>
-            </p>
-            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
-            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-              <div className="font-pixel text-[12px] leading-[2]">
-                <div className="text-body">
-                  <span className="text-[#9aa0ac]">●</span> ORIGINAL: —
-                </div>
-                <div className="text-ink">
-                  <span className="text-grass-green">●</span> VARIANT: —
-                </div>
-              </div>
-              <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#3b9c4a]">
-                <div className="font-heading text-[20px] text-[#6cc47a]">TBD</div>
-                <div className="mt-2 font-pixel text-[10px] text-dark-text">AWAITING RESULT</div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* experiment 4 — spans full width */}
-          <Reveal className="flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] shadow-[6px_6px_0_#7b62c9] lg:col-span-2">
-            <div className="font-heading text-[12px] text-poke-blue">▸ CREATIVE TEST</div>
-            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">
-              THANK YOU VIDEO VARIANTS
-            </div>
-            <div className="mt-5 grid grid-cols-2 gap-[14px] sm:grid-cols-4">
-              {TYV_VARIANTS.map((variant) => (
-                <div key={variant.label}>
-                  <span
-                    className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${variant.labelClass}`}
-                  >
-                    ● {variant.label}
+              {buttonTest.images.map((image, i) => (
+                <div key={image.label}>
+                  <span className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${image.chipClass}`}>
+                    ● {image.label}
                   </span>
-                  <div className="relative mt-[10px] aspect-[9/16] overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream">
-                    <Image
-                      src={variant.src}
-                      alt={`Thank You Video ${variant.label.toLowerCase()}`}
-                      fill
-                      className="object-cover object-top"
-                      sizes="(min-width: 640px) 22vw, 45vw"
-                    />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(buttonOffset + i)}
+                    aria-label={`View larger ${image.alt}`}
+                    className="group relative mt-[10px] block aspect-[3/4] w-full cursor-zoom-in overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-poke-blue"
+                  >
+                    <Image src={image.src} alt={image.alt} fill className="object-cover object-top transition-transform duration-300 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, 45vw" />
+                  </button>
                 </div>
               ))}
             </div>
             <p className="mt-5 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Problem:</b> A Thank You Video was already working on the
-              Medicare quote flow, but we hadn&rsquo;t tested which creative treatment actually
-              performed best.
+              <b className="text-ink">Problem:</b> {buttonTest.problem}
             </p>
             <p className="mt-3 text-[15px] leading-[1.6] text-body">
-              <b className="text-ink">Action:</b> Ran a multivariate test across four creative
-              treatments for the video &ndash; page headline, thumbnail style, and framing &ndash;
-              on the same Medicare confirmation step.
+              <b className="text-ink">Action:</b> {buttonTest.action}
             </p>
             <p className="mt-3 text-[15px] leading-[1.6] text-body">
               <b className="text-ink">Result:</b>{" "}
-              <span className="text-body/70">Add your real result here — e.g. which variant won and the lift.</span>
+              {buttonTest.resultPending ? (
+                <span className="text-body/70">{buttonTest.result}</span>
+              ) : (
+                buttonTest.result
+              )}
             </p>
             <div className="mt-[22px] border-t-2 border-dashed border-divider" />
             <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
               <div className="font-pixel text-[12px] leading-[2]">
-                <div className="text-body">
-                  <span className="text-[#9aa0ac]">●</span> ORIGINAL: —
-                </div>
-                <div className="text-ink">
-                  <span className="text-psychic-purple">●</span> WINNING VARIANT: —
-                </div>
+                {buttonTest.legend.map((row, i) => (
+                  <div key={row.label} className={i === 0 ? "text-body" : "text-ink"}>
+                    <span className={row.dotClass}>●</span> {row.label}
+                  </div>
+                ))}
               </div>
-              <div className="shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center shadow-[4px_4px_0_#7b62c9]">
-                <div className="font-heading text-[20px] text-[#a58ee0]">TBD</div>
-                <div className="mt-2 font-pixel text-[10px] text-dark-text">AWAITING RESULT</div>
+              <div className={`shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center ${buttonTest.statTileShadowClass}`}>
+                <div className={`font-heading text-[20px] ${buttonTest.statValueClass}`}>{buttonTest.statValue}</div>
+                <div className="mt-2 font-pixel text-[10px] text-dark-text">{buttonTest.statLabel}</div>
               </div>
             </div>
+            <Link
+              href={`/work/experiments/${buttonTest.slug}`}
+              className="mt-5 inline-flex min-h-[44px] items-center self-start font-pixel text-[13px] text-fire-red transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-poke-blue"
+            >
+              VIEW EXPERIMENT ▸
+            </Link>
+          </Reveal>
+
+          {/* experiment 2 */}
+          <Reveal className={`flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] ${funnelTest.shadowClass}`}>
+            <div className="font-heading text-[12px] text-poke-blue">▸ {funnelTest.eyebrow}</div>
+            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">{funnelTest.title}</div>
+            <div className="mt-5">
+              {funnelTest.images.map((image, i) => (
+                <div key={image.label}>
+                  <span className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${image.chipClass}`}>
+                    ● {image.label}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(funnelOffset + i)}
+                    aria-label={`View larger ${image.alt}`}
+                    className="group relative mt-[10px] block aspect-video w-full cursor-zoom-in overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-poke-blue"
+                  >
+                    <Image src={image.src} alt={image.alt} fill className="object-cover object-top transition-transform duration-300 group-hover:scale-105" sizes="(min-width: 1024px) 45vw, 90vw" />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Problem:</b> {funnelTest.problem}
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Action:</b> {funnelTest.action}
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Result:</b>{" "}
+              {funnelTest.resultPending ? (
+                <span className="text-body/70">{funnelTest.result}</span>
+              ) : (
+                funnelTest.result
+              )}
+            </p>
+            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <div className="font-pixel text-[12px] leading-[2]">
+                {funnelTest.legend.map((row, i) => (
+                  <div key={row.label} className={i === 0 ? "text-body" : "text-ink"}>
+                    <span className={row.dotClass}>●</span> {row.label}
+                  </div>
+                ))}
+              </div>
+              <div className={`shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center ${funnelTest.statTileShadowClass}`}>
+                <div className={`font-heading text-[20px] ${funnelTest.statValueClass}`}>{funnelTest.statValue}</div>
+                <div className="mt-2 font-pixel text-[10px] text-dark-text">{funnelTest.statLabel}</div>
+              </div>
+            </div>
+            <Link
+              href={`/work/experiments/${funnelTest.slug}`}
+              className="mt-5 inline-flex min-h-[44px] items-center self-start font-pixel text-[13px] text-fire-red transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-poke-blue"
+            >
+              VIEW EXPERIMENT ▸
+            </Link>
+          </Reveal>
+
+          {/* experiment 3 */}
+          <Reveal className={`flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] ${emailTest.shadowClass}`}>
+            <div className="font-heading text-[12px] text-poke-blue">▸ {emailTest.eyebrow}</div>
+            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">{emailTest.title}</div>
+            <div className="mt-5 grid grid-cols-1 gap-[14px] sm:grid-cols-2">
+              {emailTest.images.map((image, i) => (
+                <div key={image.label}>
+                  <span className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${image.chipClass}`}>
+                    ● {image.label}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(emailOffset + i)}
+                    aria-label={`View larger ${image.alt}`}
+                    className="group relative mt-[10px] block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-poke-blue"
+                  >
+                    <Image src={image.src} alt={image.alt} fill className="object-cover object-top transition-transform duration-300 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw" />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Problem:</b> {emailTest.problem}
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Action:</b> {emailTest.action}
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Result:</b>{" "}
+              {emailTest.resultPending ? (
+                <span className="text-body/70">{emailTest.result}</span>
+              ) : (
+                emailTest.result
+              )}
+            </p>
+            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <div className="font-pixel text-[12px] leading-[2]">
+                {emailTest.legend.map((row, i) => (
+                  <div key={row.label} className={i === 0 ? "text-body" : "text-ink"}>
+                    <span className={row.dotClass}>●</span> {row.label}
+                  </div>
+                ))}
+              </div>
+              <div className={`shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center ${emailTest.statTileShadowClass}`}>
+                <div className={`font-heading text-[20px] ${emailTest.statValueClass}`}>{emailTest.statValue}</div>
+                <div className="mt-2 font-pixel text-[10px] text-dark-text">{emailTest.statLabel}</div>
+              </div>
+            </div>
+            <Link
+              href={`/work/experiments/${emailTest.slug}`}
+              className="mt-5 inline-flex min-h-[44px] items-center self-start font-pixel text-[13px] text-fire-red transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-poke-blue"
+            >
+              VIEW EXPERIMENT ▸
+            </Link>
+          </Reveal>
+
+          {/* experiment 4 */}
+          <Reveal className={`flex flex-col rounded-[18px] border-4 border-ink bg-white px-6 py-[26px] ${creativeTest.shadowClass}`}>
+            <div className="font-heading text-[12px] text-poke-blue">▸ {creativeTest.eyebrow}</div>
+            <div className="mt-[14px] font-heading text-[17px] leading-[1.4] text-ink">{creativeTest.title}</div>
+            <div className="mt-5 grid grid-cols-2 gap-[14px]">
+              {creativeTest.images.map((image, i) => (
+                <div key={image.label}>
+                  <span className={`rounded-xl border-2 px-[10px] py-1 font-pixel text-[10px] ${image.chipClass}`}>
+                    ● {image.label}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(creativeOffset + i)}
+                    aria-label={`View larger ${image.alt}`}
+                    className="group relative mt-[10px] block aspect-[9/16] w-full cursor-zoom-in overflow-hidden rounded-[10px] border-[3px] border-ink bg-cream focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-poke-blue"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                      sizes="(min-width: 768px) 22vw, 45vw"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Problem:</b> {creativeTest.problem}
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Action:</b> {creativeTest.action}
+            </p>
+            <p className="mt-3 text-[15px] leading-[1.6] text-body">
+              <b className="text-ink">Result:</b>{" "}
+              {creativeTest.resultPending ? (
+                <span className="text-body/70">{creativeTest.result}</span>
+              ) : (
+                creativeTest.result
+              )}
+            </p>
+            <div className="mt-[22px] border-t-2 border-dashed border-divider" />
+            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <div className="font-pixel text-[12px] leading-[2]">
+                {creativeTest.legend.map((row, i) => (
+                  <div key={row.label} className={i === 0 ? "text-body" : "text-ink"}>
+                    <span className={row.dotClass}>●</span> {row.label}
+                  </div>
+                ))}
+              </div>
+              <div className={`shrink-0 rounded-[14px] border-[3px] border-ink bg-ink px-5 py-4 text-center ${creativeTest.statTileShadowClass}`}>
+                <div className={`font-heading text-[20px] ${creativeTest.statValueClass}`}>{creativeTest.statValue}</div>
+                <div className="mt-2 font-pixel text-[10px] text-dark-text">{creativeTest.statLabel}</div>
+              </div>
+            </div>
+            <Link
+              href={`/work/experiments/${creativeTest.slug}`}
+              className="mt-5 inline-flex min-h-[44px] items-center self-start font-pixel text-[13px] text-fire-red transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-poke-blue"
+            >
+              VIEW EXPERIMENT ▸
+            </Link>
           </Reveal>
         </div>
       </div>
+
+      <Lightbox
+        images={AB_LIGHTBOX_IMAGES}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </section>
   );
 }
