@@ -50,7 +50,7 @@ export default function Contact() {
       <CornerSprite src="/sprites/eevee-pixel.png" corner="bottom" side="left" size={104} durationMs={2800} flip />
 
       <Reveal
-        className="relative z-2 overflow-hidden rounded-[24px] border-[5px] border-ink shadow-[8px_8px_0_#17171b]"
+        className="relative overflow-hidden rounded-[24px] border-[5px] border-ink shadow-[8px_8px_0_#17171b]"
         style={{ background: "linear-gradient(150deg, #e3350d, #f0a30a)" }}
       >
         <div
