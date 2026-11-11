@@ -90,10 +90,10 @@ export default function Contact() {
                 ▶ BOOK A CALL
               </PixelButton>
               <PixelButton
-                href="/Tonya_Golden_Resume.docx"
+                href="/Tonya_Golden_Resume.pdf"
                 className="bg-pikachu-yellow text-ink shadow-[5px_5px_0_#17171b] hover:shadow-[7px_7px_0_#17171b]"
               >
-                ⬇ RESUME
+                ⬇ RÉSUMÉ
               </PixelButton>
             </div>
 
