@@ -93,7 +93,18 @@ export default function Contact() {
                 href="/Tonya_Golden_Resume.pdf"
                 className="bg-pikachu-yellow text-ink shadow-[5px_5px_0_#17171b] hover:shadow-[7px_7px_0_#17171b]"
               >
-                ⬇ RÉSUMÉ
+                <svg
+                  className="h-[14.8px] w-[14.8px]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3.5"
+                  strokeLinecap="square"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3v15M5 11l7 7 7-7M4 22h16" />
+                </svg>
+                RÉSUMÉ
               </PixelButton>
             </div>
 
